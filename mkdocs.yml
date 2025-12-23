@@ -1,0 +1,26 @@
+site_name: Puzzles and Probability
+site_description: Probability, puzzles, and decision-making
+site_author: Palashdeep Singh
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Puzzles:
+      - Puzzle 01: puzzles/puzzle-01.md
+  - About: about.md
