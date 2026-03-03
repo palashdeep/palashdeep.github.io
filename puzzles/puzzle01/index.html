@@ -6,13 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Probability, puzzles, and decision-making">
+        <meta name="description" content="Probability, Puzzles, and Decision-Making">
       
       
         <meta name="author" content="Palashdeep Singh">
       
       
       
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../puzzle02/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Puzzle 01 — Bayesian Reasoning - Puzzles and Probability</title>
+        <title>Subset of Subsets - Puzzles and Probability</title>
       
     
     
@@ -64,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#puzzle-01-bayesian-reasoning" class="md-skip">
+        <a href="#subset-of-subsets" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Puzzle 01 — Bayesian Reasoning
+              Subset of Subsets
             
           </span>
         </div>
@@ -220,8 +224,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -232,13 +238,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
@@ -259,7 +263,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -274,17 +278,125 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../puzzle-01.md" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subset of Subsets
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    Puzzle 01
+    Subset of Subsets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem Statement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-outline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution Outline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Insight
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../puzzle02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First Black Ace
   
 
     
@@ -359,6 +471,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#problem-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem Statement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#solution-outline" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -397,12 +520,32 @@
 
 
 
-<h1 id="puzzle-01-bayesian-reasoning">Puzzle 01 — Bayesian Reasoning</h1>
-<p><em>Problem statement here.</em></p>
+<h1 id="subset-of-subsets">Subset of Subsets</h1>
+<h2 id="problem-statement">Problem Statement</h2>
+<p>Prove that every set of ten distinct numbers between 1 and 100 contains two disjoint nonempty subsets with the same sum.</p>
 <h2 id="solution-outline">Solution Outline</h2>
-<p><em>High-level reasoning here.</em></p>
+<p>At first glance this problem doesn't seem to make much sense (atleast it didn't to me). You are not given any specific structure for the sets or subsets - just the numbers 1, 100, and 10. That strongly suggests the solution must rely on these values alone. </p>
+<p>The trick here is to realize that this problem has nothing to do with explicitly finding subsets, computing sums or applying complicated mathematics. Instead, it is a beautiful application of the Pigeonhole principle. If that makes sense now, go back and solve this yourself.</p>
+<p>If you weren't able to complete it or are here to check your reasoning - let's walk through it.</p>
+<p>The trick is to ignore the disjointness of the subsets temporarily. We will return to it later.</p>
+<p>For every set of 10 distinct numbers (or any kind of items for that matter) the number of distinct nonempty subsets is: </p>
+<div class="arithmatex">\[ 2^{10} - 1 = 1023 \]</div>
+<p>which means there are that many sums. But can all 1023 sums be distinct? </p>
+<p>If we can prove that the total number of possible subset sums is less than 1023 our work here is done. </p>
+<p>Now lets find the bounds for the possible sums.</p>
+<ul>
+<li>The minimum sum would obviously be atleast 1 </li>
+<li>But what about the maximum? The largest sum occurs when we choose the 10 largest distinct numbers between 1 and 100:</li>
+</ul>
+<div class="arithmatex">\[ 100 + 99 + 98 + ... + 91 = 955. \]</div>
+<p>So every subset sum must lie between 1 and 955 which gives atmost 955 possible values. </p>
+<p>But we have 1023 nonempty subsets.</p>
+<p>Since 1023 &gt; 955, there must be atleast two distinct subets with the same sum. This follows directly from the Pigeonhole Principle.</p>
+<p>Now we address the disjointness condition.</p>
+<p>The subsets we found may not be disjoint. Fortunately, this one is easy to get around as you can just throw out their common elements; the remaining parts are still nonempty (since the subsets were distinct); are disjoint and still have the same sum.</p>
 <h2 id="key-insight">Key Insight</h2>
-<p><em>One paragraph on what makes this problem interesting.</em></p>
+<p>The key insight is recognizing that this is purely a counting problem. It is not about computing clever subset sums or constructing special examples. Once you see that the number of subsets exceeds the number of possible sums, the conclusion follows immediately from the Pigeonhole Principle.</p>
+<p>That shift in perspective is what makes the problem elegant.</p>
 
 
 
