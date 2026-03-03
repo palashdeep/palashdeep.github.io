@@ -1,5 +1,5 @@
 site_name: Puzzles and Probability
-site_description: Probability, puzzles, and decision-making
+site_description: Probability, Puzzles, and Decision-Making
 site_author: Palashdeep Singh
 
 theme:
@@ -22,5 +22,6 @@ extra_javascript:
 nav:
   - Home: index.md
   - Puzzles:
-      - Puzzle 01: puzzles/puzzle-01.md
+      - Subset of Subsets: puzzles/puzzle01.md
+      - First Black Ace: puzzles/puzzle02.md
   - About: about.md
