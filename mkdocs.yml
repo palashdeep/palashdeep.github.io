@@ -24,4 +24,5 @@ nav:
   - Puzzles:
       - Subset of Subsets: puzzles/puzzle01.md
       - First Black Ace: puzzles/puzzle02.md
+      - Choosing the Largest Offer: puzzles/puzzle03.md 
   - About: about.md
