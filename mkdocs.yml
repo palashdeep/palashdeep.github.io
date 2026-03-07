@@ -25,4 +25,6 @@ nav:
       - Subset of Subsets: puzzles/puzzle01.md
       - First Black Ace: puzzles/puzzle02.md
       - Choosing the Largest Offer: puzzles/puzzle03.md 
+      - Card Game: puzzles/puzzle04.md
+      - Monty Hall with a Twist: puzzles/puzzle05.md
   - About: about.md
