@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../puzzle01/">
+        <link rel="prev" href="../puzzle03/">
       
       
-        <link rel="next" href="../puzzle03/">
+        <link rel="next" href="../puzzle05/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>First Black Ace - Puzzles and Probability</title>
+        <title>Card Game - Puzzles and Probability</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#first-black-ace" class="md-skip">
+        <a href="#card-game" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              First Black Ace
+              Card Game
             
           </span>
         </div>
@@ -306,6 +306,62 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../puzzle02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First Black Ace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../puzzle03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choosing the Largest Offer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -325,7 +381,7 @@
   <span class="md-ellipsis">
     
   
-    First Black Ace
+    Card Game
   
 
     
@@ -343,7 +399,7 @@
   <span class="md-ellipsis">
     
   
-    First Black Ace
+    Card Game
   
 
     
@@ -392,10 +448,54 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mode-vs-mean" class="md-nav__link">
+  <a href="#the-strategy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mode vs Mean
+        The Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Stop?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#computing-probability-of-success" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Computing Probability of Success
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approximating-for-large-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approximating for Large n
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-optimal-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Optimal Strategy
       
     </span>
   </a>
@@ -422,62 +522,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../puzzle03/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Choosing the Largest Offer
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../puzzle04/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Card Game
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -595,10 +639,54 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mode-vs-mean" class="md-nav__link">
+  <a href="#the-strategy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mode vs Mean
+        The Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Stop?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#computing-probability-of-success" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Computing Probability of Success
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approximating-for-large-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approximating for Large n
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-optimal-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Optimal Strategy
       
     </span>
   </a>
@@ -638,38 +726,72 @@
 
 
 
-<h1 id="first-black-ace">First Black Ace</h1>
+<h1 id="card-game">Card Game</h1>
 <h2 id="problem-statement">Problem Statement</h2>
-<p>Suppose a deck of 52 playing cards is thoroughly shuffled. You are asked to guess in advance the position of the first black ace. This procedure is repeated many times; each time, this deck is thoroughly shuffled, and each time, you guess the position of the first black ace.</p>
-<p>What position in the deck should you guess so that if the procedure is repeated many times, you would maximize your chances of guessing correctly the position of the black ace?</p>
+<p>You have 52 playing cards (26 red, 26 black). You draw cards one by one. A red card pays you a dollar. A black one fines you a dollar. You can stop anytime you want. Cards are not returned to the deck after being drawn. What is the optimal stopping rule in terms of maximizing expected payoff? Also, what is the expected payoff following this optimal rule?</p>
 <h2 id="solution-outline">Solution Outline</h2>
-<p>At first glance, many of us might guess the familiar answer of 53/3 or around 17th-18th position but that would be incorrect. </p>
-<p>There is a subtle point here that is easy to miss; the problem asks for the "most likely" position of the first black ace, not the "expected" position. This is the difference between the <strong>mode</strong> and the <strong>mean</strong> of a distribution.</p>
-<p>So how do we determine the mode of the position of the first black ace or in other words, the most likely position.</p>
-<p>First we define the distribution.</p>
-<p>We can think of the two black aces as being placed uniformly at random among the 52 positions. Let <span class="arithmatex">\(A_1\)</span>, <span class="arithmatex">\(A_2\)</span> be the positions of the two aces, Define</p>
-<div class="arithmatex">\[ X = min(A_1, A_2) \]</div>
-<p>the position of the first black ace. For <span class="arithmatex">\(X = k\)</span>, one ace must be at <em>k</em> and the other must be somewhere between <span class="arithmatex">\(k+1\)</span> and 52. Once one ace is fixed at position <em>k</em>, the second ace has <span class="arithmatex">\((52 - k)\)</span> possible positions.</p>
-<p>What about total ways to choose two positions out of 52 ? </p>
-<div class="arithmatex">\[ \binom{52}{2} \]</div>
-<p>Therefore,</p>
-<div class="arithmatex">\[ P(X = k) = \frac{52 - k}{\binom{52}{2}}, \quad k = 1,2,...,51 \]</div>
-<p>Now we have the distribution and all the heavy lifting is done. To find the most likely position, we simply need to maximise the probability function defined above. </p>
-<p>We note here that the numerator <span class="arithmatex">\((52 - k)\)</span> is strictly decreasing as <em>k</em> increases which means <span class="arithmatex">\(k = 1\)</span> has the largest probability and the probailities decrease as we move deeper into the deck.</p>
-<p>Hence, the mode of distribution is:</p>
-<div class="arithmatex">\[ k = 1 \]</div>
-<p>The somewhat surprising answer is that we should guess that the <strong>top card</strong> is the first black ace in the deck! </p>
-<p>By symmetry, it can also be argued that the most likely position for the second black ace (the maximum of <span class="arithmatex">\(A_1\)</span>, <span class="arithmatex">\(A_2\)</span>) is the bottom card of the deck.</p>
-<h3 id="mode-vs-mean">Mode vs Mean</h3>
-<p>As mentioned earlier, mode is not equal to mean here.</p>
-<p>This matters as the expected position answers the question: if we repeat this procedure forever, where does first black ace land on average?</p>
-<p>Mathematically,</p>
-<div class="arithmatex">\[ \mathbb{E}[X] = \sum_{k=1}^{51} k \cdot \frac{52 - k}{\binom{52}{2}} \approx 17.3 \]</div>
-<p>So, the math indeed comes full circle. The expected position is around 17th card, confirming the common intuition. But that is not the most likely single position. </p>
-<p>What we're not doing in this problem is maximizing the average outcome. We are maximizing the probability of guessing a single value correctly which means identifying the largest term in the probability mass function.</p>
+<p>Placed in this situation, many applicants might question the hiring manager's cruelty. After all, the question arises whether or not your chances are much larger than <span class="arithmatex">\(1/n\)</span> <span class="arithmatex">\((n = 100)\)</span>. Yet only the few best applicants have any idea that the size of the probability of winning is <strong>significantly larger</strong>.</p>
+<p>Perhaps mathematics can come to our aid. </p>
+<p>One important observation is that the applicant is given <strong>no prior information</strong> about the distribution of the offers. Therefore, the only meaningful comparison is relative to the offers seen so far. </p>
+<p>During the process of drawing the slips, only a slip that has the largest offer thus far is worth considering; lets call this slip a <em>candidate.</em></p>
+<h3 id="the-strategy">The Strategy</h3>
+<p>I suggest now that the optimal strategy is simply:</p>
+<ul>
+<li>Pass/reject the first <em>r</em> slips outright.</li>
+<li>Choose the candidate thereafter (first slip larger than all previous). </li>
+</ul>
+<p>Intuitively, first phase acts as <strong>sampling period</strong>, allowing us to estimate how large the offers might be. After this phase, we should accept the first offer that beats everything we have seen.</p>
+<h3 id="when-to-stop">When to Stop?</h3>
+<p>Obviously, we would choose a candidate at draw <em>i</em> if its probability of winning exceeds the probability of winning with the <strong>best</strong> strategy at a later time; formally,</p>
+<div class="arithmatex">\[ P(i) &gt; P(i+1 \quad onward) \]</div>
+<p>We can show that:</p>
+<ul>
+<li>Probability of winning if <strong>we stop now</strong> increases with <em>i</em></li>
+<li>Probability of winning if <strong>we continue</strong> decreases with <em>i</em> </li>
+</ul>
+<p>Therefore a state of draw occurs at which it is preferable to keep a candidate rather than to go on.</p>
+<h3 id="computing-probability-of-success">Computing Probability of Success</h3>
+<p>Early in the game we lose nothing as we can just pass slips until we are at the position where we want to be. In other words, there is no harm with having too many options at hand. Consequently, the probability of continuing must decrease or stay constant as <em>i</em> increases.</p>
+<p>Now comes the important part. We noted before that we only stop when we see the largest so far which is how we defined our candidate. Hence, the probability that it is the maximum of the sample is <em>i/n</em> (max being in the first <em>i</em> draws), which strictly increases with <em>i</em> from 1/n to 1. This is our probability of winning with draw <em>i</em>.</p>
+<p>Somehwere along the line our left hand probability will exceed our right hand probability. Then we can define the optimum strategy by the rule expressed earlier: let the first <em>r</em> go by and choose the first candidate thereafter.</p>
+<p>We only win only if two events occur for some <span class="arithmatex">\(r &lt; k \leq n\)</span>:</p>
+<ul>
+<li><strong>Event A:</strong> The largest offer occurs at <span class="arithmatex">\(k &gt; r\)</span></li>
+<li><strong>Event B:</strong> The maximum among first <span class="arithmatex">\(k - 1\)</span> occurs within first <em>r</em> slips</li>
+</ul>
+<p>Otherwise we would have stopped earlier (between <em>r</em> and <em>k</em>).</p>
+<p>Now the probability max occurs at <em>k</em> is:</p>
+<div class="arithmatex">\[ P(A) = \frac{1}{n}\]</div>
+<p>and the probability maximum of first <span class="arithmatex">\(k - 1\)</span> appears in the first <em>r</em> positions is</p>
+<div class="arithmatex">\[ P(B) = \frac{r}{k - 1} \]</div>
+<p>Thus the probability of winning with threshold <em>r</em> is,</p>
+<div class="arithmatex">\[ P(r) = \sum P(A) \cdot P(B) = \sum_{k=r+1}^{n} \frac{1}{n} \cdot \frac{r}{k - 1} \]</div>
+<h3 id="approximating-for-large-n">Approximating for Large <em>n</em></h3>
+<p>For large n, we can approximate the harmonic sum as:</p>
+<div class="arithmatex">\[ \sum_{k=r+1}^{n} \frac{1}{k - 1} \approx \ln(\frac{n}{r}) \]</div>
+<p>This gives</p>
+<div class="arithmatex">\[ P(r) \approx \frac{r}{n} \ln(\frac{n}{r}) \]</div>
+<p>To maximize, we differentiate:</p>
+<div class="arithmatex">\[ \frac{1}{n} ( \ln(\frac{n}{r}) - 1 ) \]</div>
+<p>Setting to zero yields:</p>
+<div class="arithmatex">\[ r = \frac{n}{e} \]</div>
+<h3 id="the-optimal-strategy">The Optimal Strategy</h3>
+<p>For <span class="arithmatex">\(n = 100\)</span>,</p>
+<div class="arithmatex">\[ r \approx \frac{100}{e} \approx 37 \]</div>
+<p>So the optimal strategy is:</p>
+<ul>
+<li>Reject the first 37 slips, no matter what.</li>
+<li>The select the first candidate thereafter.</li>
+</ul>
+<p>This strategy succeeds with probability approximately</p>
+<div class="arithmatex">\[ P(r) \approx \frac{1}{e} \approx 36.8\% \]</div>
+<p>This is quite remarkable. What initally looks like a hopeless <em>1/100</em> can be imporved to <strong>over 1/3</strong> using nothing more than a clever stopping rule.</p>
+<p>Perhaps that prop shop offer isn't out of reach after all.</p>
 <h2 id="key-insight">Key Insight</h2>
-<p>The key insight here is recognizing that the problem is asking about the <strong>most likely</strong> position (the mode), not the <strong>expected</strong> position (the mean). Once, the distribution of the two black aces is defined correctly and the relationship of probability with <em>k</em> established, the answer folllows immediately.</p>
-<p>The surprise comes from how often we instinctively think in terms of averages, even when the question is not asking for one.</p>
+<p>The key insight is recognizing that you should <strong>separate exploration from exploitation</strong>. </p>
+<p>We initially observe enough samples to understand scale of the offers. We then, finally commit to the first offer that beats everything seen so far.</p>
+<p>Mathematically, the optimal threshold for observation occurs at roughly <em>n/e</em> samples, which yield the famous <em>1/e</em> success probability.</p>
+<p>What looks like a cruel puzzle from a hiring manager is actually one of the most elegant stopping problems in probability.</p>
 
 
 
