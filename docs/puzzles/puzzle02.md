@@ -32,13 +32,19 @@ $$ P(X = k) = \frac{52 - k}{\binom{52}{2}}, \quad k = 1,2,...,51 $$
 
 Now we have the distribution and all the heavy lifting is done. To find the most likely position, we simply need to maximise the probability function defined above. 
 
-We note here that the numerator $(52 - k)$ is strictly decreasing as *k* increases which means $k = 1$ has the largest probability and the probailities decrease as we move deeper into the deck.
+We note here that the numerator $(52 - k)$ is strictly decreasing as *k* increases which means $k = 1$ has the largest probability and the probabilities decrease as we move deeper into the deck.
 
 Hence, the mode of distribution is:
 
 $$ k = 1 $$ 
 
-The somewhat surprising answer is that we should guess that the **top card** is the first black ace in the deck! 
+The somewhat surprising answer is that we should guess that the **top card** is the first black ace in the deck!
+
+It's worth pausing here a moment. While we have solved that position 1 is the most likely, some would still argue it is not likely in any absolute sense 
+
+$$ P(X = 1) = \frac{51}{1326} \approx 3.85\% $$
+
+As noted earlier, the distribution is strictly decreasing but very flat; so no single position is a certain "good guess". What we're really solving here is that among 51 positions, position 1 gives you the best odds and in a repeated game, that edge compounds. This is precisely why the mode, not the mean, is the right statistic to optimize when payoff is for an exact match.
 
 By symmetry, it can also be argued that the most likely position for the second black ace (the maximum of $A_1$, $A_2$) is the bottom card of the deck.
 
@@ -50,7 +56,7 @@ This matters as the expected position answers the question: if we repeat this pr
 
 Mathematically,
 
-$$ \mathbb{E}[X] = \sum_{k=1}^{51} k \cdot \frac{52 - k}{\binom{52}{2}} \approx 17.3 $$
+$$ \mathbb{E}[X] = \sum_{k=1}^{51} k \cdot \frac{52 - k}{\binom{52}{2}} \approx 17.67 $$
 
 So, the math indeed comes full circle. The expected position is around 17th card, confirming the common intuition. But that is not the most likely single position. 
 
@@ -58,6 +64,6 @@ What we're not doing in this problem is maximizing the average outcome. We are m
 
 ## Key Insight
 
-The key insight here is recognizing that the problem is asking about the **most likely** position (the mode), not the **expected** position (the mean). Once, the distribution of the two black aces is defined correctly and the relationship of probability with *k* established, the answer folllows immediately.
+The key insight here is recognizing that the problem is asking about the **most likely** position (the mode), not the **expected** position (the mean). Once the distribution of the two black aces is defined correctly and the relationship of probability with *k* established, the answer follows immediately.
 
 The surprise comes from how often we instinctively think in terms of averages, even when the question is not asking for one.
