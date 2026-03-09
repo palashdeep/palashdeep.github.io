@@ -759,16 +759,16 @@
 </ul>
 <p>Therefore a state of draw occurs at which it is preferable to keep a candidate rather than to go on.</p>
 <h3 id="computing-probability-of-success">Computing Probability of Success</h3>
-<p>Early in the game we lose nothing as we can just pass slips until we are at the position where we want to be. In other words, there is no harm with having too many options at hand. Consequently, the probability of continuing must decrease or stay constant as <em>i</em> increases.</p>
-<p>Now comes the important part. We noted before that we only stop when we see the largest so far which is how we defined our candidate. Hence, the probability that it is the maximum of the sample is <em>i/n</em> (max being in the first <em>i</em> draws), which strictly increases with <em>i</em> from 1/n to 1. This is our probability of winning with draw <em>i</em>.</p>
-<p>Somehwere along the line our left hand probability will exceed our right hand probability. Then we can define the optimum strategy by the rule expressed earlier: let the first <em>r</em> go by and choose the first candidate thereafter.</p>
+<p>The value of continuing must strictly decrease as <em>i</em> increases as the more slips we've seen, the fewer remain, so passing on a candidate becomes costlier.</p>
+<p>We noted before that we only stop when we see the largest so far. Hence, the probability that it is the true maximum of the sample is <em>i/n</em> (max being in the first <em>i</em> draws), which strictly increases with <em>i</em> from 1/n to 1. This is our probability of winning with draw <em>i</em>.</p>
+<p>Somewhere along the line our left hand probability will exceed our right hand probability. Then we can define the optimum strategy by the rule expressed earlier: let the first <em>r</em> go by and choose the first candidate thereafter.</p>
 <p>We only win only if two events occur for some <span class="arithmatex">\(r &lt; k \leq n\)</span>:</p>
 <ul>
 <li><strong>Event A:</strong> The largest offer occurs at <span class="arithmatex">\(k &gt; r\)</span></li>
 <li><strong>Event B:</strong> The maximum among first <span class="arithmatex">\(k - 1\)</span> occurs within first <em>r</em> slips</li>
 </ul>
 <p>Otherwise we would have stopped earlier (between <em>r</em> and <em>k</em>).</p>
-<p>Now the probability max occurs at <em>k</em> is:</p>
+<p>Now the probability max occurs at <em>k</em> is (assuming uniform distribution of offers):</p>
 <div class="arithmatex">\[ P(A) = \frac{1}{n}\]</div>
 <p>and the probability maximum of first <span class="arithmatex">\(k - 1\)</span> appears in the first <em>r</em> positions is</p>
 <div class="arithmatex">\[ P(B) = \frac{r}{k - 1} \]</div>
@@ -782,7 +782,7 @@
 <p>To maximize, we differentiate:</p>
 <div class="arithmatex">\[ \frac{1}{n} ( \ln(\frac{n}{r}) - 1 ) \]</div>
 <p>Setting to zero yields:</p>
-<div class="arithmatex">\[ r = \frac{n}{e} \]</div>
+<div class="arithmatex">\[ \ln(\frac{1}{n}) = 1, \quad r = \frac{n}{e} \]</div>
 <h3 id="the-optimal-strategy">The Optimal Strategy</h3>
 <p>For <span class="arithmatex">\(n = 100\)</span>,</p>
 <div class="arithmatex">\[ r \approx \frac{100}{e} \approx 37 \]</div>
@@ -793,11 +793,11 @@
 </ul>
 <p>This strategy succeeds with probability approximately</p>
 <div class="arithmatex">\[ P(r) \approx \frac{1}{e} \approx 36.8\% \]</div>
-<p>This is quite remarkable. What initally looks like a hopeless <em>1/100</em> can be imporved to <strong>over 1/3</strong> using nothing more than a clever stopping rule.</p>
+<p>This is quite remarkable. What initially looks like a hopeless <em>1/100</em> can be improved to <strong>over 1/3</strong> using nothing more than a clever stopping rule.</p>
 <p>Perhaps that prop shop offer isn't out of reach after all.</p>
 <h2 id="key-insight">Key Insight</h2>
 <p>The key insight is recognizing that you should <strong>separate exploration from exploitation</strong>. </p>
-<p>We initially observe enough samples to understand scale of the offers. We then, finally commit to the first offer that beats everything seen so far.</p>
+<p>We initially observe enough samples to understand scale of the offers. We then finally commit to the first offer that beats everything seen so far.</p>
 <p>Mathematically, the optimal threshold for observation occurs at roughly <em>n/e</em> samples, which yield the famous <em>1/e</em> success probability.</p>
 <p>What looks like a cruel puzzle from a hiring manager is actually one of the most elegant stopping problems in probability.</p>
 

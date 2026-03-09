@@ -476,10 +476,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-genenal-principle-for-monty-hall-problems" class="md-nav__link">
+  <a href="#a-general-principle-for-monty-hall-problems" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A Genenal Principle for Monty Hall Problems
+        A General Principle for Monty Hall Problems
       
     </span>
   </a>
@@ -617,10 +617,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-genenal-principle-for-monty-hall-problems" class="md-nav__link">
+  <a href="#a-general-principle-for-monty-hall-problems" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A Genenal Principle for Monty Hall Problems
+        A General Principle for Monty Hall Problems
       
     </span>
   </a>
@@ -684,36 +684,48 @@
 
 <h1 id="monty-hall-with-a-twist">Monty Hall with a Twist</h1>
 <h2 id="problem-statement">Problem Statement</h2>
-<p>Monty Hall has introduced a new twist to his famous game, by generalizing the initial probabilities of where the car might be. Specifically, there are three doors, behind one of which there is a car, and behind the other two of which there are goats. Initially, door <em>i</em> has probability <span class="arithmatex">\(p_i\)</span> of having the car, where <span class="arithmatex">\(p_1, p_2, p_3\)</span> are known constants such that <span class="arithmatex">\(0 &lt; p_1 \leq p_2 \leq p_3 &lt; 1\)</span> and <span class="arithmatex">\(p_1 + p_2 + p_3 = 1\)</span>. The contestant chooses a door. Monty then opens one of the remaining doors and reveals a goat, after with the contestant is offered the choice to swtich to the other unopened door.</p>
+<p>Monty Hall has introduced a new twist to his famous game, by generalizing the initial probabilities of where the car might be. Specifically, there are three doors, behind one of which there is a car, and behind the other two of which there are goats. Initially, door <em>i</em> has probability <span class="arithmatex">\(p_i\)</span> of having the car, where <span class="arithmatex">\(p_1, p_2, p_3\)</span> are known constants such that <span class="arithmatex">\(0 &lt; p_1 \leq p_2 \leq p_3 &lt; 1\)</span> and <span class="arithmatex">\(p_1 + p_2 + p_3 = 1\)</span>. The contestant chooses a door. Monty then opens one of the remaining doors and reveals a goat, after which the contestant is offered the choice to switch to the other unopened door.</p>
 <p>(a) Assume Monty knows in advance which door has the car. He always opens a door to reveal a goat, and if he has a choice of which door to open he chooses with equal probabilities. Suppose the contestant initially chooses door 3, and Monty opens door 2, revealing a goat. Given the above information, find the conditional probability that door 3 has the car. Should the contestant switch? (If the decision depends on the <span class="arithmatex">\(p_i\)</span>'s, give a simplified criterion in terms of them.)</p>
 <p>(b) Now assume Monty does not know in advance where the car is. He randomly chooses which door to open (other than the contestant's choice), with equal probability. (The game is spoiled if he reveals the car.) Suppose again that the contestant initially chooses door 3, and Monty opens door 2, revealing a goat. Given the above information, find the conditional probability that door 3 has the car. Should the contestant switch? (If the decision depends on the <span class="arithmatex">\(p_i\)</span>'s, give a simplified criterion in terms of them.)</p>
 <h2 id="solution-outline">Solution Outline</h2>
-<p>This problem is a variation(twist) of the classic Monty Hall problem. Before we dive into how to solve this one I want to state an important result that has helped me solve/understand the Monty Hall problems in general.</p>
-<h3 id="a-genenal-principle-for-monty-hall-problems">A Genenal Principle for Monty Hall Problems</h3>
-<p>Suppose there are <em>n</em> doors and the contestant chooses one of them, following which Monty opens <em>m</em> doors out of the remaining <span class="arithmatex">\(n - 1\)</span> doors, each revealing goats. </p>
-<p>The probability that the <strong>original choice</strong> had car remains,</p>
+<p>This problem is a variation (twist) of the classic Monty Hall problem. We use this to illustrate how Bayesian reasoning works when priors are non-uniform. The problem is not new but before we dive into how to solve this one we build intuition for a general framework that has helped me understand these problems and can be extended to more complex variants.</p>
+<h3 id="a-general-principle-for-monty-hall-problems">A General Principle for Monty Hall Problems</h3>
+<p>The core of any Monty Hall problem is a Bayesian update. Monty's actions convey information and how informative those are depends entirely on what Monty knows and the choices he has.</p>
+<p>Specifically, suppose contestant chooses door <em>k</em>, and Monty opens door <em>j</em>, revealing a goat. By Bayes' rule, the posterior that car is behind door <em>i</em> is:</p>
+<div class="arithmatex">\[ P(C_i | D_j) = \frac{P(D_j | C_i) \cdot P(C_i)}{P(D_j)} \]</div>
+<p>where,</p>
+<div class="arithmatex">\[ P(D_j) = \sum_l P(D_j | C_l) \cdot P(C_l) \]</div>
+<p>The prior <span class="arithmatex">\(P(C_i) = p_i\)</span> is usually given. The quantity that varies across different Monty Hall variants is the <strong>likelihood</strong> P(D_j | C_l) - probability that Monty opens door <em>j</em> given car is behind door <em>l</em>. This depends entirely on Monty's knowledge and strategy, hence, modeling his behavior is the most important step.</p>
+<p><strong>The Uniform Case as a Special Example</strong></p>
+<p>Suppose there are <em>n</em> doors with uniform priors <span class="arithmatex">\(p_i = 1/n\)</span> and the contestant chooses one of them, following which Monty opens <em>m</em> goat doors uniformly out of the remaining <span class="arithmatex">\(n - 1\)</span> doors.</p>
+<p>Since all priors are equal, the posterior simplifies to being purely proportional to the likelihood:</p>
+<div class="arithmatex">\[ P(C_i | D_j) \propto P(D_j | C_i) \]</div>
+<p>The probability that the <strong>original choice</strong> had car</p>
 <div class="arithmatex">\[ P(\text{original door}) = \frac{1}{n} \]</div>
-<p>which <strong>remains constant</strong> throughtout the game because nothing has happened that would affect the chance of initial correct guess. </p>
+<p>which under uniform priors (<span class="arithmatex">\(p_i = 1/n\)</span>) <strong>remains constant</strong> as observing which specific door Monty opens does not update the posterior for the original door. This symmetry breaks down under non-uniform priors.</p>
 <p>However, the probability that car lies behind one of the <strong>other unopened doors</strong> is</p>
 <div class="arithmatex">\[ \frac{n-1}{n} \]</div>
 <p>Once Monty eliminates <em>m</em> doors, this probability gets <strong>redistributed among the remaining unopened doors</strong>, which gives</p>
-<div class="arithmatex">\[ P(\text{success with switching}) = \frac{n-1}{n} \cdot \frac{1}{n-m-1} \]</div>
+<div class="arithmatex">\[ P(\text{switching wins}) = \frac{n-1}{n} \cdot \frac{1}{n-m-1} \]</div>
 <p>which we can understand as:
 * <strong>Residual probability:</strong> the probability that the car was not behind the original door
 * <strong>Redistribution:</strong> how that probability spreads across the remaining unopened doors</p>
+<p>For the classical case <span class="arithmatex">\(n = 3, m = 1\)</span>, gives the familiar result of <span class="arithmatex">\(P(\text{switching wins}) = 2/3\)</span>.</p>
 <p>This perspective is extremely useful and can come in handy when analyzing many Monty Hall variations.</p>
+<p><strong>Why this Breaks Down Here</strong></p>
+<p>Once priors are non-uniform, posteriors are no longer directly proportional to likelihoods. The full Bayes' rule must be applied directly, and Monty's behavior affects likelihoods in a non-trivial way.</p>
 <h3 id="solution-to-a">Solution to (a)</h3>
 <p>The Monty Hall problem and its variations become easy to understand and solve if you're able to isolate the different cases clearly which is how we attempt the solution. For the same purpose define,</p>
 <ul>
-<li><span class="arithmatex">\(C_i\)</span>: car behind door <em>i</em></li>
+<li><span class="arithmatex">\(C_i\)</span>: Car behind door <em>i</em></li>
 <li><span class="arithmatex">\(D_i\)</span>: Monty opens door <em>i</em></li>
 </ul>
 <p>Monty <strong>knows</strong> where the car is and always opens a goat door.</p>
-<p>We are given that the contestant chooses <strong>door 3</strong>, and Monty opens <strong>door 2</strong>. We therefore want <span class="arithmatex">\(P(C_3 | D_2)\)</span> which we can write using conditional probability,</p>
-<div class="arithmatex">\[ P(C_3 | D_2) = \frac{P(C_3 \cap D_2 )}{P(D_2)} \]</div>
+<p>We are given that the contestant chooses <strong>door 3</strong>, and Monty opens <strong>door 2</strong>, revealing a goat. We therefore want <span class="arithmatex">\(P(C_3 | D_2)\)</span> which we can write using conditional probability,</p>
+<div class="arithmatex">\[ P(C_3 | D_2) = \frac{P(C_3 \cap D_2)}{P(D_2)} \]</div>
 <p>There are two scenarios which lead to Monty opening door 2.</p>
 <p><strong>Case 1: Car behind door 3</strong></p>
-<p>Monty is equally likey to open either door 1 or door 2,</p>
+<p>Monty is equally likely to open either door 1 or door 2,</p>
 <div class="arithmatex">\[ P(C_3 \cap D_2) = p_3 \cdot \frac{1}{2} \]</div>
 <p><strong>Case 2: Car behind door 1</strong></p>
 <p>Monty must open door 2.</p>
@@ -731,7 +743,7 @@
 <p>Otherwise the contestant should stay.</p>
 <p>Note how this differs from the standard result of <em>2/3</em>, since the initial probabilities are no longer symmetric.</p>
 <h3 id="solution-to-b">Solution to (b)</h3>
-<p>Now Monty <strong>does not know</strong> where the car is and randomly opens of the two doors not chosen by the contestant.</p>
+<p>Now Monty <strong>does not know</strong> where the car is and randomly opens one of the two doors not chosen by the contestant.</p>
 <p>For the case when the car is behind door 3, the situation is unchanged:</p>
 <div class="arithmatex">\[ P(C_3 \cap D_2) = p_3 \cdot \frac{1}{2} \]</div>
 <p>If the car is behind door 1, now Monty doesn't always open door 2. Only half the cases in which the game continues (Monty doesn't reveal the car) matter. Hence,</p>
