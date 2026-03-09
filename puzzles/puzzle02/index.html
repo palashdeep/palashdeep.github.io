@@ -655,20 +655,23 @@
 <p>Therefore,</p>
 <div class="arithmatex">\[ P(X = k) = \frac{52 - k}{\binom{52}{2}}, \quad k = 1,2,...,51 \]</div>
 <p>Now we have the distribution and all the heavy lifting is done. To find the most likely position, we simply need to maximise the probability function defined above. </p>
-<p>We note here that the numerator <span class="arithmatex">\((52 - k)\)</span> is strictly decreasing as <em>k</em> increases which means <span class="arithmatex">\(k = 1\)</span> has the largest probability and the probailities decrease as we move deeper into the deck.</p>
+<p>We note here that the numerator <span class="arithmatex">\((52 - k)\)</span> is strictly decreasing as <em>k</em> increases which means <span class="arithmatex">\(k = 1\)</span> has the largest probability and the probabilities decrease as we move deeper into the deck.</p>
 <p>Hence, the mode of distribution is:</p>
 <div class="arithmatex">\[ k = 1 \]</div>
-<p>The somewhat surprising answer is that we should guess that the <strong>top card</strong> is the first black ace in the deck! </p>
+<p>The somewhat surprising answer is that we should guess that the <strong>top card</strong> is the first black ace in the deck!</p>
+<p>It's worth pausing here a moment. While we have solved that position 1 is the most likely, some would still argue it is not likely in any absolute sense </p>
+<div class="arithmatex">\[ P(X = 1) = \frac{51}{1326} \approx 3.85\% \]</div>
+<p>As noted earlier, the distribution is strictly decreasing but very flat; so no single position is a certain "good guess". What we're really solving here is that among 51 positions, position 1 gives you the best odds and in a repeated game, that edge compounds. This is precisely why the mode, not the mean, is the right statistic to optimize when payoff is for an exact match.</p>
 <p>By symmetry, it can also be argued that the most likely position for the second black ace (the maximum of <span class="arithmatex">\(A_1\)</span>, <span class="arithmatex">\(A_2\)</span>) is the bottom card of the deck.</p>
 <h3 id="mode-vs-mean">Mode vs Mean</h3>
 <p>As mentioned earlier, mode is not equal to mean here.</p>
 <p>This matters as the expected position answers the question: if we repeat this procedure forever, where does first black ace land on average?</p>
 <p>Mathematically,</p>
-<div class="arithmatex">\[ \mathbb{E}[X] = \sum_{k=1}^{51} k \cdot \frac{52 - k}{\binom{52}{2}} \approx 17.3 \]</div>
+<div class="arithmatex">\[ \mathbb{E}[X] = \sum_{k=1}^{51} k \cdot \frac{52 - k}{\binom{52}{2}} \approx 17.67 \]</div>
 <p>So, the math indeed comes full circle. The expected position is around 17th card, confirming the common intuition. But that is not the most likely single position. </p>
 <p>What we're not doing in this problem is maximizing the average outcome. We are maximizing the probability of guessing a single value correctly which means identifying the largest term in the probability mass function.</p>
 <h2 id="key-insight">Key Insight</h2>
-<p>The key insight here is recognizing that the problem is asking about the <strong>most likely</strong> position (the mode), not the <strong>expected</strong> position (the mean). Once, the distribution of the two black aces is defined correctly and the relationship of probability with <em>k</em> established, the answer folllows immediately.</p>
+<p>The key insight here is recognizing that the problem is asking about the <strong>most likely</strong> position (the mode), not the <strong>expected</strong> position (the mean). Once the distribution of the two black aces is defined correctly and the relationship of probability with <em>k</em> established, the answer follows immediately.</p>
 <p>The surprise comes from how often we instinctively think in terms of averages, even when the question is not asking for one.</p>
 
 
