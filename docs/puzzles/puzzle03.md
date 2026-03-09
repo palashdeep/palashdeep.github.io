@@ -48,11 +48,11 @@ Therefore a state of draw occurs at which it is preferable to keep a candidate r
 
 ### Computing Probability of Success
 
-Early in the game we lose nothing as we can just pass slips until we are at the position where we want to be. In other words, there is no harm with having too many options at hand. Consequently, the probability of continuing must decrease or stay constant as *i* increases.
+The value of continuing must strictly decrease as *i* increases as the more slips we've seen, the fewer remain, so passing on a candidate becomes costlier.
 
-Now comes the important part. We noted before that we only stop when we see the largest so far which is how we defined our candidate. Hence, the probability that it is the maximum of the sample is *i/n* (max being in the first *i* draws), which strictly increases with *i* from 1/n to 1. This is our probability of winning with draw *i*.
+We noted before that we only stop when we see the largest so far. Hence, the probability that it is the true maximum of the sample is *i/n* (max being in the first *i* draws), which strictly increases with *i* from 1/n to 1. This is our probability of winning with draw *i*.
 
-Somehwere along the line our left hand probability will exceed our right hand probability. Then we can define the optimum strategy by the rule expressed earlier: let the first *r* go by and choose the first candidate thereafter.
+Somewhere along the line our left hand probability will exceed our right hand probability. Then we can define the optimum strategy by the rule expressed earlier: let the first *r* go by and choose the first candidate thereafter.
 
 We only win only if two events occur for some $r < k \leq n$:
 
@@ -61,7 +61,7 @@ We only win only if two events occur for some $r < k \leq n$:
 
 Otherwise we would have stopped earlier (between *r* and *k*).
 
-Now the probability max occurs at *k* is:
+Now the probability max occurs at *k* is (assuming uniform distribution of offers):
 
 $$ P(A) = \frac{1}{n}$$
 
@@ -89,7 +89,7 @@ $$ \frac{1}{n} ( \ln(\frac{n}{r}) - 1 ) $$
 
 Setting to zero yields:
 
-$$ r = \frac{n}{e} $$
+$$ \ln(\frac{1}{n}) = 1, \quad r = \frac{n}{e} $$
 
 ### The Optimal Strategy
 
@@ -106,7 +106,7 @@ This strategy succeeds with probability approximately
 
 $$ P(r) \approx \frac{1}{e} \approx 36.8\% $$
 
-This is quite remarkable. What initally looks like a hopeless *1/100* can be imporved to **over 1/3** using nothing more than a clever stopping rule.
+This is quite remarkable. What initially looks like a hopeless *1/100* can be improved to **over 1/3** using nothing more than a clever stopping rule.
 
 Perhaps that prop shop offer isn't out of reach after all.
 
@@ -114,7 +114,7 @@ Perhaps that prop shop offer isn't out of reach after all.
 
 The key insight is recognizing that you should **separate exploration from exploitation**. 
 
-We initially observe enough samples to understand scale of the offers. We then, finally commit to the first offer that beats everything seen so far.
+We initially observe enough samples to understand scale of the offers. We then finally commit to the first offer that beats everything seen so far.
 
 Mathematically, the optimal threshold for observation occurs at roughly *n/e* samples, which yield the famous *1/e* success probability.
 

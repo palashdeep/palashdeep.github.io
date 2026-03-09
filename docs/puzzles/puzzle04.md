@@ -6,106 +6,145 @@ You have 52 playing cards (26 red, 26 black). You draw cards one by one. A red c
 
 ## Solution Outline
 
-Placed in this situation, many applicants might question the hiring manager's cruelty. After all, the question arises whether or not your chances are much larger than $1/n$ $(n = 100)$. Yet only the few best applicants have any idea that the size of the probability of winning is **significantly larger**.
+Starting off, one thing seems clear, you cannot be better or worse off at the end of the game than you are at the start if you draw all the 52 cards. Which means the worst you can guarantee is **zero payoff**. Can we do better by stopping earlier?
 
-Perhaps mathematics can come to our aid. 
+### Dynamic Programming Formulation
 
-One important observation is that the applicant is given **no prior information** about the distribution of the offers. Therefore, the only meaningful comparison is relative to the offers seen so far. 
+Let *R* and *B* denote the total number of red and black cards at the start of the game. Let *r* and *b* denote the number of red and black cards still to be drawn at some intermediate stage of the game. Since you are paid $+1$ for every red card drawn and $-1$ for every black card, your current accumulated score is $(R - r) - (B - b)$. Let the **optimal expected value** of the cards yet to be drawn be $E(r, b)$, so the total value of the game at any stage can be denoted by,
 
-During the process of drawing the slips, only a slip that has the largest offer thus far is worth considering; lets call this slip a *candidate.*
+$$ V(r, b) = (R - r) - (B - b) + E(r, b) $$
 
-### The Strategy
+Now, the important part remains to define what $E(r, b)$ looks like. We can recursively define it as follows,
 
-I suggest now that the optimal strategy is simply:
+$$ E(r, b) = \begin{cases} 
+0, & \text{if } r = 0 \\
+r, & \text{if } b = 0 \\
+\max \left\{ 0, \frac{r}{r+b} [1 + E(r-1, b)] + \frac{b}{r+b} [-1 + E(r, b-1)] \right\}, & \text{otherwise.} 
+\end{cases} $$
 
-* Pass/reject the first *r* slips outright.
-* Choose the candidate thereafter (first slip larger than all previous). 
+Let's go through each case, if $r = 0$, this means there is no upside left in continuing and hence, one should halt now. If $b = 0$, this implies all remaining cards are red, so you should draw them all. For any other case the expected value is solved recursively as given.
 
-Intuitively, first phase acts as **sampling period**, allowing us to estimate how large the offers might be. After this phase, we should accept the first offer that beats everything we have seen.
+The above equation can be solved programmatically using dynamic programming, which also constructs the $E(r, b)$ matrix. If the expected value of the remaining deck is positive, you should continue playing and if it's negative, you should stop. Note that you won't see negative values in your matrix as they are floored at zero, which doesn't mean you are indifferent about continuing. In fact, in each case you should quit immediately and even for the one where the expectation is actually zero, a risk-averse player would quit.   
 
-### When to Stop?
+When playing optimally, the last card drawn is always red. That is, you never pick a black card and then quit. As discussed earlier, the optimal score cannot be negative as you can always get zero payoff by drawing every card. Thus, optimal score is a non-increasing step function of the number of black cards drawn (drawing red cards has no effect on the optimal score to quit at).
 
-Obviously, we would choose a candidate at draw *i* if its probability of winning exceeds the probability of winning with the **best** strategy at a later time; formally,
+### Discussion: Optimal Stopping Rule
 
-$$ P(i) > P(i+1 \quad onward) $$
+The decision to stop only depends on **future expectation** as seen earlier. The **current accumulated payoff is irrelevant** as stopping just locks in what you have. If you stop now, the future value becomes zero.
 
-We can show that:
+Let's define the **continuation value**,
 
-* Probability of winning if **we stop now** increases with *i*
-* Probability of winning if **we continue** decreases with *i* 
+$$ C(r,b) = \frac{r}{r+b} [1 + E(r-1, b)] + \frac{b}{r+b} [-1 + E(r, b-1)] $$
 
-Therefore a state of draw occurs at which it is preferable to keep a candidate rather than to go on.
+and
 
-### Computing Probability of Success
+$$ E(r,b) = \max (0, C(r, b)) $$
 
-Early in the game we lose nothing as we can just pass slips until we are at the position where we want to be. In other words, there is no harm with having too many options at hand. Consequently, the probability of continuing must decrease or stay constant as *i* increases.
+We also note that the recursive relation of $C(r, b)$ is the **Bellman equation** for the optimal stopping problem with boundary at $V(0,b) = 0$.
 
-Now comes the important part. We noted before that we only stop when we see the largest so far which is how we defined our candidate. Hence, the probability that it is the maximum of the sample is *i/n* (max being in the first *i* draws), which strictly increases with *i* from 1/n to 1. This is our probability of winning with draw *i*.
+As discussed before, we stop whenever the continuation value $\leq 0$ which means stopping rule becomes **a boundary in the $(r, b)$ plane**. Thus the optimal strategy is:
 
-Somehwere along the line our left hand probability will exceed our right hand probability. Then we can define the optimum strategy by the rule expressed earlier: let the first *r* go by and choose the first candidate thereafter.
+* **continue if** $C(r, b) > 0$
+* **stop if** $C(r, b) \leq 0$
 
-We only win only if two events occur for some $r < k \leq n$:
+Now $V(r, b) = 0$ creates a **nonlinear free-boundary problem** which does not yield a closed analytic expression.
 
-* **Event A:** The largest offer occurs at $k > r$
-* **Event B:** The maximum among first $k - 1$ occurs within first *r* slips
+The recursion can be solved efficiently using dynamic programming. For the full deck,
 
-Otherwise we would have stopped earlier (between *r* and *k*).
+$$ E(26, 26) \approx 2.62 $$
 
-Now the probability max occurs at *k* is:
+Thus optimal play yields an expected profit of about **$2.62**.
 
-$$ P(A) = \frac{1}{n}$$
+### The Game as a Random Walk
 
-and the probability maximum of first $k - 1$ appears in the first *r* positions is
+How do you estimate an upper bound for this without actually solving the complete problem?
 
-$$ P(B) = \frac{r}{k - 1} $$
+You start at zero. At each step either you gain $1 or lose $1. Let
 
-Thus the probability of winning with threshold *r* is,
+$$ S_n = \text{cumulative profit after n draws} $$
 
-$$ P(r) = \sum P(A) \cdot P(B) = \sum_{k=r+1}^{n} \frac{1}{n} \cdot \frac{r}{k - 1} $$
+This is a **random walk** but with probabilities changing over time.
 
-### Approximating for Large *n*
+$$ P(+1) = \frac{r}{r+b}, \quad P(-1) = \frac{b}{r+b} $$
 
-For large n, we can approximate the harmonic sum as:
+The expected value of the walk is always,
 
-$$ \sum_{k=r+1}^{n} \frac{1}{k - 1} \approx \ln(\frac{n}{r}) $$
+$$ E[S_n] = 0 $$
 
-This gives
+as the deck has equal reds and blacks. So $S_n$ is a **martingale**. More precisely, $S_{t \wedge \tau}$ is a stopped martingale, and since $\tau \leq 52$ is a bounded stopping time, the optional stopping theorem guarantees $E[S_{\tau} = 0]$, the expected profit at the stopping point is zero, and all profit comes purely from the timing optionality.
 
-$$ P(r) \approx \frac{r}{n} \ln(\frac{n}{r}) $$
+But the expected profit is positive as we are allowed to **stop at any time**. Our payoff is therefore,
 
-To maximize, we differentiate:
+$$ \max_{t \leq 52} S_t $$
 
-$$ \frac{1}{n} ( \ln(\frac{n}{r}) - 1 ) $$
+and profit,
 
-Setting to zero yields:
+$$ E[\max S_t] > 0 $$
 
-$$ r = \frac{n}{e} $$
+because taking $max$ breaks the martingale symmetry. We appeal to Doob's $L^2$ maximal inequality for a martingale process which gives
 
-### The Optimal Strategy
+$$ E\left[\max_t S_t^2\right] \leq 4E[S_n^2] $$
 
-For $n = 100$,
+Taking square roots and using Jensen's inequality,
 
-$$ r \approx \frac{100}{e} \approx 37 $$
+$$ E\left[\max_t S_t\right] \leq 2\sqrt{E[S_n^2]} = 2\sqrt{Var(S_n)} $$
 
-So the optimal strategy is:
+Since $Var(S_n) \approx n$ for a symmetric random walk, this gives
 
-* Reject the first 37 slips, no matter what.
-* The select the first candidate thereafter.
+$$ E[\max S_t] \leq 2\sqrt{52} \approx 14.4 $$
 
-This strategy succeeds with probability approximately
+This bound is loose but serves to show the expected payoff is **finite and sublinear in deck size**. We tighten this bound later on.
 
-$$ P(r) \approx \frac{1}{e} \approx 36.8\% $$
+Note that while $S_{52} = 0$ in our case, due to the balanced deck, the variance approximation used applies to the *path* of the walk, not its fixed endpoint. We are borrowing this from the unconstrained symmetric random walk, where increments have unit variance. The finite-deck constraint will ultimately force the walk back to zero, which is precisely why the actual value of ~2.6 falls well below this upper bound.
 
-This is quite remarkable. What initally looks like a hopeless *1/100* can be imporved to **over 1/3** using nothing more than a clever stopping rule.
+### Large Deck Approximation
 
-Perhaps that prop shop offer isn't out of reach after all.
+We also note a really nice asymptotic insight here. 
+
+For large decks, an asymptotic approximation gives a tighter boundand reveals the geometric structure of the problem. The process behaves like **Brownian motion**. Let $d = r - b$ be the red advantage. The remaining deck size is
+
+$$ n = r + b $$
+
+The variance of the remaining walk is roughly of the order of *n*. Optimal stopping theory shows the stopping boundary approximately satisfies
+
+$$ d \approx c \sqrt{n} $$
+
+where *c* can be numerically estimated from the DP solution to be around 1. This means you should continue only if your red advantage exceeds roughly $\sqrt{n}$, i.e. the remaining volatility of the walk.
+
+Under the Brownian motion approximation, $S_t$ converges to a scaled Brownian motion $B_t$. For a standard Brownian motion, the reflection principle gives
+
+$$ E[|B_n|] = \sqrt{\frac{2n}{\pi}} $$
+
+and since the running maximum of a Brownian motion satisfies
+
+$$ E[\max_{t \leq n} B_t] = E[|B_n|] $$
+
+By symmetry and reflection, we get:
+
+$$ E\left[\max_t S_t\right] \approx \sqrt{\frac{2n}{\pi}} \approx 5.75 $$
+
+This is a tighter upper bound than the Doob bound, though still above the true value ~2.6. The gap can be explained by two compounding effects: first, the finite-deck constraint forces $S_{52} = 0$, which penalizes the running maximum relative to the unconstrained case; second, the changing draw probabilities as the deck depletes mean the walk loses volatility toward the end, further constraining the maximum. The true value is roughly half the BM bound, which is consistent with these constraints absorbing half the optionality. 
+
+Thus we obtain the rough bounds,
+
+$$ E[\max S_t] < \sqrt{\frac{2n}{\pi}} < \sqrt{n} $$
+
+### You are Holding an American Option
+
+The optimal stopping structure discussed has a well-known financial analogue. The problem is essentially a **finite American option on a biased random walk with changing probabilities**.
+
+At any time you can **exercise and lock in your profit**. Your payoff therefore, as defined before, is
+
+$$ \max_{t \leq n} S_t $$
+
+This is exactly the payoff of an American option:
+
+* underlying: random walk $S_t$
+* exercise value: current value $S_t$
+* maturity: $n$
+
+If the walk rises past the optimal threshold, you exercise; otherwise you continue holding the option.
 
 ## Key Insight
 
-The key insight is recognizing that you should **separate exploration from exploitation**. 
-
-We initially observe enough samples to understand scale of the offers. We then, finally commit to the first offer that beats everything seen so far.
-
-Mathematically, the optimal threshold for observation occurs at roughly *n/e* samples, which yield the famous *1/e* success probability.
-
-What looks like a cruel puzzle from a hiring manager is actually one of the most elegant stopping problems in probability.
+Even in a perfectly fair game, the ability to stop early creates value. The player is effectively holding a small **American option on the path of a random walk**, and this optionality alone generates about **$2.6 of expected profit**. 
