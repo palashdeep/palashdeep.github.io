@@ -1,4 +1,4 @@
-# Card Game
+# A Card Game
 
 ## Problem Statement
 
