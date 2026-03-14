@@ -1,0 +1,185 @@
+
+<style>
+*{box-sizing:border-box}
+.wrap{background:#fff;padding:12px;font-family:system-ui,sans-serif}
+.node-default rect,.node-default circle{fill:#f5f5f3;stroke:#888;stroke-width:1.5px}
+.node-default text{fill:#222}
+.node-active rect,.node-active circle{fill:#FAC775;stroke:#BA7517;stroke-width:2px}
+.node-active text{fill:#412402}
+.node-a rect{fill:#FAECE7;stroke:#D85A30;stroke-width:1.5px}
+.node-a text{fill:#712B13}
+.node-a-active rect{fill:#F0997B;stroke:#993C1D;stroke-width:2px}
+.node-a-active text{fill:#4A1B0C}
+.node-b rect{fill:#E1F5EE;stroke:#1D9E75;stroke-width:1.5px}
+.node-b text{fill:#085041}
+.node-b-active rect{fill:#5DCAA5;stroke:#0F6E56;stroke-width:2px}
+.node-b-active text{fill:#04342C}
+.edge{stroke:#aaa;stroke-width:1.5;fill:none}
+.elabel{fill:#555;font-size:11px;font-family:system-ui,sans-serif}
+.btn{font-size:13px;padding:5px 14px;border-radius:8px;border:1px solid #ccc;background:#fff;color:#222;cursor:pointer;font-family:system-ui,sans-serif}
+.btn:hover{background:#f5f5f3}.btn:disabled{opacity:.4;cursor:default}
+.ch{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:6px;margin:1px;font-family:monospace}
+.ch-H{background:#dbeafe;color:#1e40af}.ch-T{background:#d1fae5;color:#065f46}
+.stat-label{font-size:11px;color:#888;margin-bottom:2px}
+.stat-val{font-size:19px;font-weight:600;color:#222}
+@keyframes wf{0%,100%{opacity:1}40%{opacity:.3}}.wf{animation:wf .5s ease}
+</style>
+
+<div class="wrap">
+<svg width="100%" viewBox="0 0 680 560" style="display:block">
+<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- init dot + arrow -->
+<circle cx="36" cy="270" r="5" fill="#333"/>
+<line x1="42" y1="270" x2="50" y2="270" class="edge" marker-end="url(#ar)"/>
+
+<!-- edges -->
+<!-- start→H -->
+<line x1="108" y1="253" x2="196" y2="192" class="edge" marker-end="url(#ar)"/>
+<text class="elabel" x="142" y="211">H</text>
+<!-- start→T -->
+<line x1="108" y1="287" x2="196" y2="358" class="edge" marker-end="url(#ar)"/>
+<text class="elabel" x="138" y="336">T</text>
+<!-- H→HH -->
+<line x1="284" y1="160" x2="364" y2="100" class="edge" marker-end="url(#ar)"/>
+<text class="elabel" x="318" y="116">H</text>
+<!-- H→T curve -->
+<path d="M196,195 C140,270 140,360 190,370" class="edge" marker-end="url(#ar)"/>
+<text class="elabel" x="142" y="284">T</text>
+<!-- HH self-loop -->
+<path d="M382,60 C356,16 446,16 422,60" class="edge" marker-end="url(#ar)"/>
+<text class="elabel" x="402" y="10">H</text>
+<!-- HH→HHT -->
+<line x1="452" y1="84" x2="526" y2="152" class="edge" marker-end="url(#ar)"/>
+<text class="elabel" x="494" y="108">T</text>
+<!-- T self-loop -->
+<path d="M196,400 C172,438 268,438 244,400" class="edge" marker-end="url(#ar)"/>
+<text class="elabel" x="230" y="452">T</text>
+<!-- T→TH -->
+<line x1="284" y1="388" x2="364" y2="448" class="edge" marker-end="url(#ar)"/>
+<text class="elabel" x="318" y="426">H</text>
+<!-- TH→THH -->
+<line x1="452" y1="460" x2="524" y2="460" class="edge" marker-end="url(#ar)"/>
+<text class="elabel" x="482" y="452">H</text>
+<!-- TH→T curve -->
+<path d="M402,480 C402,524 238,524 236,400" class="edge" marker-end="url(#ar)"/>
+<text class="elabel" x="322" y="536">T</text>
+
+<!-- nodes -->
+<g id="n-start" class="node-active">
+  <circle cx="80" cy="270" r="28"/>
+  <text x="80" y="270" text-anchor="middle" dominant-baseline="central" font-size="18" font-weight="600" font-family="system-ui,sans-serif">∅</text>
+</g>
+<text x="80" y="316" text-anchor="middle" font-size="11" fill="#888" font-family="system-ui,sans-serif">start</text>
+
+<g id="n-H" class="node-default">
+  <rect x="196" y="142" width="88" height="38" rx="8"/>
+  <text x="240" y="161" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" font-family="system-ui,sans-serif">H</text>
+</g>
+
+<g id="n-HH" class="node-default">
+  <rect x="364" y="60" width="88" height="38" rx="8"/>
+  <text x="408" y="79" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" font-family="system-ui,sans-serif">HH</text>
+</g>
+
+<g id="n-T" class="node-default">
+  <rect x="196" y="360" width="88" height="38" rx="8"/>
+  <text x="240" y="379" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" font-family="system-ui,sans-serif">T</text>
+</g>
+
+<g id="n-TH" class="node-default">
+  <rect x="364" y="440" width="88" height="38" rx="8"/>
+  <text x="408" y="459" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" font-family="system-ui,sans-serif">TH</text>
+</g>
+
+<g id="n-HHT" class="node-a">
+  <rect x="524" y="148" width="128" height="48" rx="8"/>
+  <text x="588" y="164" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" font-family="system-ui,sans-serif">HHT</text>
+  <text x="588" y="182" text-anchor="middle" dominant-baseline="central" font-size="11" font-family="system-ui,sans-serif">A wins</text>
+</g>
+
+<g id="n-THH" class="node-b">
+  <rect x="524" y="436" width="128" height="48" rx="8"/>
+  <text x="588" y="452" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" font-family="system-ui,sans-serif">THH</text>
+  <text x="588" y="470" text-anchor="middle" dominant-baseline="central" font-size="11" font-family="system-ui,sans-serif">B wins</text>
+</g>
+</svg>
+
+<div style="display:flex;gap:20px;margin:8px 0 10px;flex-wrap:wrap">
+  <div>
+    <div class="stat-label">current state</div>
+    <div class="stat-val" id="slabel">∅</div>
+  </div>
+  <div style="flex:1;min-width:140px">
+    <div class="stat-label">flip sequence</div>
+    <div id="seqout" style="min-height:24px;line-height:1.9"></div>
+  </div>
+</div>
+
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+  <button class="btn" id="bH" onclick="doFlip('H')">Flip H</button>
+  <button class="btn" id="bT" onclick="doFlip('T')">Flip T</button>
+  <button class="btn" id="bR" onclick="rflip()">Random</button>
+  <button class="btn" id="bAuto" onclick="toggleAuto()">Auto-play</button>
+  <button class="btn" onclick="resetG()" style="margin-left:6px">Reset</button>
+</div>
+
+<div style="display:flex;gap:16px;font-size:13px;color:#555;flex-wrap:wrap;align-items:center;border-top:1px solid #eee;padding-top:8px">
+  <span>A: <strong style="color:#993C1D">HHT</strong></span>
+  <span>B: <strong style="color:#0F6E56">THH</strong></span>
+  <span style="margin-left:auto">A wins: <strong id="ca" style="color:#993C1D">0</strong></span>
+  <span>B wins: <strong id="cb" style="color:#0F6E56">0</strong></span>
+  <span id="rate" style="color:#aaa;font-size:12px"></span>
+</div>
+</div>
+
+<script>
+const TR={start:{H:'H',T:'T'},H:{H:'HH',T:'T'},HH:{H:'HH',T:'HHT'},T:{H:'TH',T:'T'},TH:{H:'THH',T:'T'},HHT:{},THH:{}};
+const CLS={start:'node-default',H:'node-default',HH:'node-default',T:'node-default',TH:'node-default',HHT:'node-a',THH:'node-b'};
+const ACT={start:'node-active',H:'node-active',HH:'node-active',T:'node-active',TH:'node-active',HHT:'node-a-active',THH:'node-b-active'};
+let cur='start',seq=[],aW=0,bW=0,timer=null,pending=false;
+
+function hl(s){Object.keys(CLS).forEach(id=>{document.getElementById('n-'+id).setAttribute('class',id===s?ACT[id]:CLS[id]);});}
+
+function upd(){
+  document.getElementById('slabel').textContent=cur==='start'?'∅':cur;
+  document.getElementById('seqout').innerHTML=seq.slice(-36).map(c=>`<span class="ch ch-${c}">${c}</span>`).join('');
+  document.getElementById('ca').textContent=aW;
+  document.getElementById('cb').textContent=bW;
+  const tot=aW+bW;
+  document.getElementById('rate').textContent=tot>4?`B win rate: ${((bW/tot)*100).toFixed(0)}% (n=${tot})`:'';
+  const done=cur==='HHT'||cur==='THH';
+  ['bH','bT','bR'].forEach(id=>{document.getElementById(id).disabled=done;});
+}
+
+function flash(id){const g=document.getElementById(id);g.classList.add('wf');setTimeout(()=>g.classList.remove('wf'),500);}
+
+function doFlip(c){
+  if(cur==='HHT'||cur==='THH')return;
+  const nx=TR[cur][c];if(!nx)return;
+  cur=nx;seq.push(c);hl(cur);
+  if(cur==='HHT'){aW++;flash('n-HHT');}
+  if(cur==='THH'){bW++;flash('n-THH');}
+  upd();
+}
+
+function rflip(){doFlip(Math.random()<.5?'H':'T');}
+
+function resetG(){cur='start';seq=[];pending=false;hl('start');upd();}
+
+function toggleAuto(){
+  if(timer){clearInterval(timer);timer=null;document.getElementById('bAuto').textContent='Auto-play';return;}
+  timer=setInterval(()=>{
+    if(cur==='HHT'||cur==='THH'){
+      if(!pending){pending=true;setTimeout(()=>{resetG();},380);}
+    } else rflip();
+  },210);
+  document.getElementById('bAuto').textContent='Stop';
+}
+
+hl('start');upd();
+</script>
