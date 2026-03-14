@@ -203,4 +203,4 @@ Each state in the chain of events represents how much of the pattern we have mat
 
 Below is a fun game where you can see the game Player A and Player B for themselves with each state evolving as it would in the game.
 
-<iframe src="../../html/markov_state_game.html" width="100%" height="520" frameborder="0"></iframe>
+<iframe src="../../html/markov_state_game.html" width="100%" height="700" frameborder="0"></iframe>
