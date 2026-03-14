@@ -1,4 +1,10 @@
 # Choosing the Largest Offer
+**Difficulty:** ⭐⭐⭐  
+**Topics:** Probability, Optimal Stopping
+
+*Tags: Optimal Stopping, Secretary Problem, Decision Theory, Exploration vs Exploitation*
+
+---
 
 ## Problem Statement
 
@@ -13,6 +19,8 @@ One hundred slips of paper are placed in a box, each containing a **different of
 You cannot go back to previously rejected slips.
 
 How should you play this game to maximize your probability of securing the job with the largest offer?  
+
+---
 
 ## Solution Outline
 
@@ -109,6 +117,8 @@ $$ P(r) \approx \frac{1}{e} \approx 36.8\% $$
 This is quite remarkable. What initially looks like a hopeless *1/100* can be improved to **over 1/3** using nothing more than a clever stopping rule.
 
 Perhaps that prop shop offer isn't out of reach after all.
+
+---
 
 ## Key Insight
 

@@ -1,10 +1,18 @@
 # First Black Ace
+**Difficulty:** ⭐⭐  
+**Topics:** Probability, Order Statistics
+
+*Tags: Discrete Probability, Order Statistics, Mode vs Mean, Card Probabilities*
+
+---
 
 ## Problem Statement
 
 Suppose a deck of 52 playing cards is thoroughly shuffled. You are asked to guess in advance the position of the first black ace. This procedure is repeated many times; each time, this deck is thoroughly shuffled, and each time, you guess the position of the first black ace.
 
 What position in the deck should you guess so that if the procedure is repeated many times, you would maximize your chances of guessing correctly the position of the black ace?
+
+---
 
 ## Solution Outline
 
@@ -22,7 +30,7 @@ $$ X = min(A_1, A_2) $$
 
 the position of the first black ace. For $X = k$, one ace must be at *k* and the other must be somewhere between $k+1$ and 52. Once one ace is fixed at position *k*, the second ace has $(52 - k)$ possible positions.
 
-What about total ways to choose two positions out of 52 ? 
+What about total ways to choose two distinct positions out of 52 ? 
 
 $$ \binom{52}{2} $$
 
@@ -34,7 +42,7 @@ Now we have the distribution and all the heavy lifting is done. To find the most
 
 We note here that the numerator $(52 - k)$ is strictly decreasing as *k* increases which means $k = 1$ has the largest probability and the probabilities decrease as we move deeper into the deck.
 
-Hence, the mode of distribution is:
+Hence, the mode of the distribution is:
 
 $$ k = 1 $$ 
 
@@ -44,9 +52,13 @@ It's worth pausing here a moment. While we have solved that position 1 is the mo
 
 $$ P(X = 1) = \frac{51}{1326} \approx 3.85\% $$
 
-As noted earlier, the distribution is strictly decreasing but very flat; so no single position is a certain "good guess". What we're really solving here is that among 51 positions, position 1 gives you the best odds and in a repeated game, that edge compounds. This is precisely why the mode, not the mean, is the right statistic to optimize when payoff is for an exact match.
+As noted earlier, the distribution is strictly decreasing but the relative difference between adjacent probabilities is quite small. So no single position is a certain "good guess" but every position closer to the start strictly dominates every position further from it. 
+
+What we're really solving here is that among 51 positions, position 1 gives you the best odds and in a repeated game, that edge compounds. This is precisely why the mode, not the mean, is the right statistic to optimize when payoff is for an exact match.
 
 By symmetry, it can also be argued that the most likely position for the second black ace (the maximum of $A_1$, $A_2$) is the bottom card of the deck.
+
+![Plot for the PMF](../pics/puzzle02.png)
 
 ### Mode vs Mean
 
@@ -61,6 +73,8 @@ $$ \mathbb{E}[X] = \sum_{k=1}^{51} k \cdot \frac{52 - k}{\binom{52}{2}} \approx 
 So, the math indeed comes full circle. The expected position is around 17th card, confirming the common intuition. But that is not the most likely single position. 
 
 What we're not doing in this problem is maximizing the average outcome. We are maximizing the probability of guessing a single value correctly which means identifying the largest term in the probability mass function.
+
+---
 
 ## Key Insight
 

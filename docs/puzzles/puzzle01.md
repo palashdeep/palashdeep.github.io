@@ -1,8 +1,16 @@
 # Subset of Subsets
+**Difficulty:** ⭐⭐⭐  
+**Topics:** Combinatorics, Pigeonhole Principle
+
+*Tags: Combinatorics, Pigeonhole Principle, Extremal Arguments, Subset Sums*
+
+---
 
 ## Problem Statement
 
 Prove that every set of ten distinct numbers between 1 and 100 contains two disjoint nonempty subsets with the same sum.
+
+---
 
 ## Solution Outline
 
@@ -38,6 +46,8 @@ Since 1023 > 955, there must be at least two distinct subsets with the same sum.
 Now we address the disjointness condition.
 
 The two subsets found may not be disjoint. But since all numbers in our set are positive, no proper subset can have the same sum as a larger one. Therefore, neither A nor B can contain the other, which means A\B and B\A are nonempty. Hence, we can just throw out their common elements; remainders are disjoint and still have the same sum.
+
+---
 
 ## Key Insight
 

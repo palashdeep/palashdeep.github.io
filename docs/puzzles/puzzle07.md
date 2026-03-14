@@ -1,118 +1,124 @@
-# Is My Number Higher?
+# Market Making
+**Difficulty:** ⭐⭐⭐⭐  
+**Topics:** Market Microstructure, Game Theory
+
+*Tags: Market Microstructure, Adverse Selection, Glosten-Milgrom, Expected Value, Trading Theory*
+
+---
 
 ## Problem Statement
 
-A referee independently draws two numbers *x* and *y* uniformly from $[0, 1]$. The numbers are written down on two peices of paper and put into different envelopes.
+You are tasked to make a market for 1000 traders, based on the outcome of a uniformly distributed number between 0 and 1.
 
-(a) You are given one of the envelopes. You open the envelope and observe the number. Now you must guess whether the other number is higher or lower. What is the probability you make the correct guess?
+* 500 of the traders are informed, meaning they know the outcome.
+* 500 of the traders are uninformed, meaning they guess a random number between 0 and 1.
 
-(b) Both envelopes are given to you and your friend (one each). You can only look into your own envelope. Simultaneously and without communicating, both of you announce either "mine is higher" or "mine is lower". The team wins if at least one announcement is coorect. Before the game starts, you can decide upon any strategy you may like. What is the team's win probability under random independent guessing? What is the optimal strategy and what does it achieve?
+All 1000 traders can trade on your market, but they don't have to. They are reasonable, so they'll only trade if a profit is expected (assume uninformed traders draw a private valuation beforehand uniformly on [0, 1]).
+
+How will your market look like?
+
+---
 
 ## Solution Outline
 
-Many decision problems with a lack of information look impossible at first glance. Yet surprisingly, small structural tricks can be used to get to strategies that outperform random guessing.
+Let the true outcome be $X \sim U[0,1]$
 
-This set of puzzles are exactly that but the strategies for both are quite different. We will solve both of these simultaneously.
+Making market would mean, for a contract that pays *X*, you have to make a **two-sided market** by quoting a bid *b* and an ask *a*, and hence a spread *s*.
 
-### The Naive Trap
+There are:
 
-For the game with single player, at first it seems that the probability of guessing correctly is 50%, i.e., it can be either right or wrong.
+* 500 informed traders, who know the exact value *X*
+* 500 uninformed traders, who only know that $X \sim U[0,1]$
+* You, the market maker, with $E[X] = 0.5$, as your prior since you have no information
 
-For the two player game, similarly the naive answer to the probability of winning with at least one guess correct would be 50%, as neither of the player knows the other number. There's nothing to be done.
+All traders only trade when **expected profit $\geq 0$**.
 
-The reasoning in both cases is wrong in a subtle way. For the first case you can do better without much effort by a simple strategy which we discuss later. But for the second part each player being stuck at 50% and the team stuck at 50% are different things. The joint distribution of who is right or wrong depends on the strategy which we discuss in the next sections.
+### Monopolist Market Maker
 
-### Random Guessing
+Upon reading the problem, first thought comes to our mind is that the market maker is looking to maximize his profit which is the case of the monopolist. You quote spread *s* around your prior, hence, your bid/ask is
 
-For the single player game, random guessing, let's say by flipping a coin, indeed gives a probability of success as 50%, with no strategy whatsoever.
+$$ b = \frac{1}{2} - \frac{s}{2} = \frac{(1 - s)}{2} $$
 
-But what about the case with two players. Let's say both players ignore their numbers entirely and each one independently announces "higher" or "lower", again by flipping a private coin.
+$$ a = \frac{1}{2} + \frac{s}{2} = \frac{(1 - s)}{2} $$
 
-What is the probability that both of them will be wrong?
+**Uninformed Traders**
 
-Both of them wrong will require exactly one of:
+The private numbers (estimate of true value) chosen by the uninformed traders, as given in the question, will be uniformly distributed between 0 and 1. Hence, they will only trade if their chosen number is less than your bid price *b* or greater than your ask price *a*.
 
-* Player 1 says "higher" but $x < y$, and Player 2 says "lower" but $y > x$
-* Player 1 says "higher" but $x > y$ and Player 2 says "lower" but $y < x$
+If what they expect to be the true value is between your spread *s*, then they will believe they are losing out on the difference between bid/ask and true value.
 
-Since the announcements are independent of each other and of the numbers, each event independently has 50% probability of occuring,
+Hence, only the traders outside the spread range *s* will trade i.e. $(1 - s)$ proportion of the total uninformed population. By symmetry half of them will be expected to buy and the other half sell. For each trade, you, the market maker will earn half the spread *s*. So your profit is,
 
-$$ P(\text{both wrong}) = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} + \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}$$
+$$ P = (1 - s) \cdot 500 \cdot \frac{s}{2} $$
 
-which implies:
+**Informed Traders**
 
-$$ P(\text{win}) = \frac{3}{4} $$
+The informed traders know the actual value *X*, and will trade only when *X* is outside your spread range *s*, which means there is $(1 - s)$ probability they trade. Each trader is reasonable and aware, they will always trade to make profit, which means you will always lose out with informed traders.
 
-This beats naive intuition. The team wins 75% of the time by doing nothing clever. The negative correlation between "who is right" which is built into the structure of the game comes to a save.
+Since you don't know the true value, your expectation of the true value seeing informed trades on buy(sell) side is the **midpoint** between ask(bid) and upper(lower) price bound (uniform distribution). This is because informed traders trade only when your ask(bid) is lower(higher) than actual price.
 
-### Optimal Strategy
+Traders will all either buy or sell which means your expected loss per trade is,
 
-The optimal strategy for both the single player and two player games is similar but the reason they work is quite different and the success probability achieved is also not the same.
+$$ \frac{(1 - s)}{4} $$
 
-Define the optimal strategy as choosing a random threshold **T**. If $x > T$, guess your number as higher, otherwise guess lower. Now let's see how this strategy performs in each of the cases.
+To see where this comes from, consider the buy side. Informed traders only buy when your ask is below actual price. Since your ask is at $(1 + s)/2$, conditioned on a buy, true value is uniformly between ask *a* and 1. The midpoint of that range is your estimate of the true value. So expected loss per trade is your estimate minus what you're charging:
 
-For the single player game, assume the two numbers be:
+$$ \frac{(1 + a)}{2} - a = \frac{(1 - a)}{2} = \frac{(1 - s)}{4} $$
 
-$$x < y$$
+Same logic applies to the sell side. Total expected loss will then be given by:
 
-You will observe either *x* or *y* with equal probability. Now consider cases for where *T* might lie,
+$$ L = (1 - s) \cdot 500 \cdot \frac{(1 - s)}{4} $$
 
-**Case 1 - *T* is the numbers**
+**Market Maker's PNL**
 
-$$x < T < y$$
+From above, your expected PNL is:
 
-Then the rule works perfectly:
+$$ \mathbb{E}[PNL] = P - L $$
 
-* If you see *x* : $x < T$, you guess lower which is correct.
-* If you see *y* : $y > T$, you guess higher which is correct. 
+Substituting *P* and *L* from above,
 
-So for this case, you are correct 100% of the time.
+$$ \mathbb{E}[PNL] = \frac{500 \cdot (1 - s)}{2} ( s - \frac{(1 - s)}{2} ) $$
 
-**Case 2 - *T* outside the interval**
+$$ \mathbb{E}[PNL] = \frac{500 \cdot (1 - s)}{4} ( 2s - (1 - s) ) $$
 
-$$T < x, \text{or} T > y$$
+$$ \mathbb{E}[PNL] = 125 \cdot (1 - s) ( 3s - 1 ) $$
 
-Then the rule is basically random as threshold provides no information - you are correct 50% of the time.
+If we plot this as a function of *s*, we can see that the maximum expected PNL occurs at $s = 2/3$, and its value is $\approx 41.67$. Obviously, you could also solve this by taking derivative of the above equation and setting it zero.
 
-**Total Probability**
+![Plot of Spread vs Expected PNL](../pics/puzzle07.png)
 
-$$ P(\text{win}) = P(T < x) \cdot \frac{1}{2} + P(x < T < y) \cdot 1 + P(T > y) \cdot \frac{1}{2} $$
+This implies that maximum profit is expected by setting the spread equal to *2/3*. Since our expectation of actual value *X* is **0.5** (we have no information), the market is as follows,
 
-But
+$$ \text{bid b} = \frac{1}{2} - \frac{1}{3} = \frac{1}{6} $$
 
-$$ P(T < x) + P(T > y) = 1 - P(x < T < y) $$
+$$ \text{ask a} = \frac{1}{2} + \frac{1}{3} = \frac{5}{6} $$
 
-implies
+$$ \text{spread s} = \frac{2}{3} $$
 
-$$ P(\text{win}) = \frac{1}{2} \cdot (1 + P(x < T < y)) $$
+### Competitive Markets (Glosten-Milgrom)
 
-Since $P(x < T < y) > 0$ for any continuous threshold distribution,
+But what if markets are competitive, then you cannot maximize profit as other market makers can undercut you. This is how the real world works.
 
-$$ P(win) > 0.5 $$
+If you're earning good profits, someone else will come in and offer better spreads to capture your volume. This way everyone keeps competing, and eventually no one earns anything. This is the kind of world Glosten and Milgrom described in 1985.
 
-So this strategy **always beats random guessing**.
+Now there is a long way to solve this using conditional expectations but we won't get into it. Instead, we note that equilibrium, in this case, is unique where no one expects to make any profit (if they did, someone could come in and offer better prices), only to break even. 
 
-What about the two player case? Similar to above you and your friend could agree upon a threshold *T* beforehand. Both players will then announce "higher" if your number exceeds *T*, otherwise annouce "lower". We analyze below all the cases,
+We can thus use the result from the previous section. The symmetry assumptions hold in both cases, so the PNL expression remains same; we can just change the objective from maximizing it to zeroing it. Hence,
 
+$$ \mathbb{E}[PNL] = 125 \cdot (1 - s) ( 3s - 1 )  = 0 $$
 
+which gives $s = 1, 1/3$. Since spread = 1 doesn't make sense, $s = 1/3$ centered around the prior mean of 0.5. The market is as follows,
 
-### Different Thresholds
+$$ \text{bid b} = \frac{1}{2} - \frac{1}{6} = \frac{1}{3} $$
 
-### Equilibrium Analysis
+$$ \text{ask a} = \frac{1}{2} + \frac{1}{6} = \frac{2}{3} $$
 
-### Geometric Interpretation
+$$ \text{spread s} = \frac{1}{3} $$
 
-### Connecting the Two Parts
+What's interesting here is that this spread exists entirely because of informed traders (can be also seen from the profit equation, setting to zero implies $s = 0$). If there were no informed traders at all, competition would drive spread to zero and you'd just be a rounding service. The spread is the market's way of pricing the risk that whoever is on the other side of your trade might know something you don't.
 
-### Intuition and Use in Trading
-
-The random threshold acts like a probe that sometimes lands between the numbers.
-Whenever it does, it reveals the correct ordering.
-
-You don’t know the distribution of the numbers — but you don’t need to.
+---
 
 ## Key Insight
 
-By introducing your own randomness, you can guess correctly more than 50% of the time, even with no knowledge of the distribution.
-
-## Generalizations
+The competitive spread (*1/3*) is actually *tighter* than the monopolist spread (*2/3*). This might seem backwards as the monopolist is greedier, so surely they'd want to trade more? But the monopolist is optimizing for profit. They're willing to sacrifice volume to extract more margin per trade. The competitive maker has no such luxury, they're forced to the tightest defensible price, and that price is pinned entirely by the adverse selection problem, not by profit ambitions.

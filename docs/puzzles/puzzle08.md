@@ -1,4 +1,10 @@
 # Exponent upon Exponent
+**Difficulty:** ⭐⭐⭐  
+**Topics:** Analysis, Functional Equations
+
+*Tags: Infinite Power Towers, Fixed Points, Lambert W Function, Monotone Convergence*
+
+---
 
 ## Problem Statement
 
@@ -13,6 +19,8 @@ $$ x^{x^{x^{.^{.^{.}}}}} = 4, $$
 one would have obtained the same answer: $x = \sqrt[4]{4} = \sqrt{2}$.
 
 Hmm. Just what is $\sqrt{2}^{\sqrt{2}^{\sqrt{2}^{.^{.^{.}}}}}$, anyway? Can you prove it?
+
+---
 
 ## Solution Outline
 
@@ -54,7 +62,7 @@ Lets look at the plot for the equation
 
 $$ x = y^{1/y} $$
 
-![Plot for x = y^(1/y)](puzzle08.png)
+![Plot for x = y^(1/y)](../pics/puzzle08.png)
 
 We see from the plot that *x* is strictly increasing in *y* upto its maximum point at $y = e$ and strictly decreasing thereafter, which explains the two values of *y* corresponding to $x = \sqrt{2}$: $y = 2$ and $y = 4$.
 
@@ -102,6 +110,8 @@ The Lambert W function has two branches:
 * **Lower Branch ($W_{-1}$)**: The gives the upper root. This exists mathematically as discussed before, but the sequence can't reach it.
 
 We can use look-up tables to get the value of Lambert W function for various *z* values or more easily you can use the *lambertw* function from the *scipy.special* library in Python to get the lower root.
+
+---
 
 ## Key Insight
 

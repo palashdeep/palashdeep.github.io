@@ -18,6 +18,6 @@ plt.xlabel('y')
 plt.ylabel('x')
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.legend()
-plt.savefig("puzzle08.png", bbox_inches='tight')
+plt.savefig("pics/puzzle08.png", bbox_inches='tight')
 
 plt.show()

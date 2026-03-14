@@ -1,26 +1,35 @@
-site_name: Puzzles and Probability
+site_name: Puzzles in Probability
 site_description: Probability, Puzzles, and Decision-Making
 site_author: Palashdeep Singh
 
 theme:
   name: material
   features:
+    - navigation.instant
     - navigation.sections
     - navigation.expand
     - content.code.copy
+    - content.action.edit
+    - content.tabs.link
 
 markdown_extensions:
   - admonition
   - pymdownx.arithmatex:
       generic: true
-  - pymdownx.highlight
+  - attr_list
+  - md_in_html
   - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
   - Home: index.md
+  - Puzzle Index: puzzles/index.md
   - Puzzles:
       - Subset of Subsets: puzzles/puzzle01.md
       - First Black Ace: puzzles/puzzle02.md
@@ -28,6 +37,7 @@ nav:
       - A Card Game: puzzles/puzzle04.md
       - Monty Hall with a Twist: puzzles/puzzle05.md
       - Penney's Game: puzzles/puzzle06.md
-      - Is My Number Higher?: puzzles/puzzle07.md
+      - Market Making: puzzles/puzzle07.md
       - Exponent upon Exponent: puzzles/puzzle08.md
-  - About: about.md
+  - About:
+    - About the Author: about.md

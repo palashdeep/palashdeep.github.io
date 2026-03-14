@@ -1,4 +1,10 @@
 # Monty Hall with a Twist
+**Difficulty:** ⭐⭐⭐  
+**Topics:** Probability, Bayesian Inference
+
+*Tags: Bayesian Inference, Conditional Probability, Information Revelation, Game Shows*
+
+---
 
 ## Problem Statement
 
@@ -7,6 +13,8 @@ Monty Hall has introduced a new twist to his famous game, by generalizing the in
 (a) Assume Monty knows in advance which door has the car. He always opens a door to reveal a goat, and if he has a choice of which door to open he chooses with equal probabilities. Suppose the contestant initially chooses door 3, and Monty opens door 2, revealing a goat. Given the above information, find the conditional probability that door 3 has the car. Should the contestant switch? (If the decision depends on the $p_i$'s, give a simplified criterion in terms of them)
 
 (b) Now assume Monty does not know in advance where the car is. He randomly chooses which door to open (other than the contestant's choice), with equal probability. (The game is spoiled if he reveals the car.) Suppose again that the contestant initially chooses door 3, and Monty opens door 2, revealing a goat. Given the above information, find the conditional probability that door 3 has the car. Should the contestant switch? (If the decision depends on the $p_i$'s, give a simplified criterion in terms of them)
+
+---
 
 ## Solution Outline
 
@@ -140,6 +148,8 @@ Since $p_3 \geq p_1$, we have
 $$ P(S | D_2) \leq \frac{1}{2} $$
 
 Thus, the contestant **should not switch**.
+
+---
 
 ## Key Insight
 

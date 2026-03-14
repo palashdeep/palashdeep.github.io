@@ -1,8 +1,16 @@
 # A Card Game
+**Difficulty:** ⭐⭐⭐⭐  
+**Topics:** Optimal Stopping, Martingales
+
+*Tags: Optimal Stopping, Dynamic Programming, Martingales, Random Walk, Optional Stopping Theorem*
+
+---
 
 ## Problem Statement
 
 You have 52 playing cards (26 red, 26 black). You draw cards one by one. A red card pays you a dollar. A black one fines you a dollar. You can stop anytime you want. Cards are not returned to the deck after being drawn. What is the optimal stopping rule in terms of maximizing expected payoff? Also, what is the expected payoff following this optimal rule?
+
+---
 
 ## Solution Outline
 
@@ -24,9 +32,27 @@ r, & \text{if } b = 0 \\
 
 Let's go through each case, if $r = 0$, this means there is no upside left in continuing and hence, one should halt now. If $b = 0$, this implies all remaining cards are red, so you should draw them all. For any other case the expected value is solved recursively as given.
 
-The above equation can be solved programmatically using dynamic programming, which also constructs the $E(r, b)$ matrix. If the expected value of the remaining deck is positive, you should continue playing and if it's negative, you should stop. Note that you won't see negative values in your matrix as they are floored at zero, which doesn't mean you are indifferent about continuing. In fact, in each case you should quit immediately and even for the one where the expectation is actually zero, a risk-averse player would quit.   
+The above equation can be solved programmatically using dynamic programming, which also constructs the $E(r, b)$ matrix. We present the $E(r, b)$ matrix for the 8 cards case as output of the python script. Similar analysis can be done for the 26 cards case,
 
-When playing optimally, the last card drawn is always red. That is, you never pick a black card and then quit. As discussed earlier, the optimal score cannot be negative as you can always get zero payoff by drawing every card. Thus, optimal score is a non-increasing step function of the number of black cards drawn (drawing red cards has no effect on the optimal score to quit at).
+```
+E(r,b) table for 4 red, 4 black:
+
+|     |   b=0 |   b=1 |   b=2 |   b=3 |   b=4 |
+|:----|------:|------:|------:|------:|------:|
+| r=0 |     0 |  0    |  0    |  0    |  0    |
+| r=1 |     1 |  0.5  |  0    |  0    |  0    |
+| r=2 |     2 |  1.33 |  0.67 |  0.2  |  0    |
+| r=3 |     3 |  2.25 |  1.5  |  0.85 |  0.34 |
+| r=4 |     4 |  3.2  |  2.4  |  1.66 |  1    |
+```
+
+```
+E(26,26) = 2.6245
+```
+
+If the expected value of the remaining deck is positive, you should continue playing and if it's negative, you should stop. Note that you won't see negative values in your matrix as they are floored at zero, which doesn't mean you are indifferent about continuing. In fact, in each case you should quit immediately and even for the one where the expectation is actually zero, a risk-averse player would quit.
+
+When playing optimally, the last card drawn is always red. That is, you never pick a black card and then quit. As discussed earlier, the optimal score cannot be negative as you can always get zero payoff by drawing every card. Thus, optimal score is a non-increasing step function of the number of black cards drawn (drawing red cards has no effect on the optimal score to quit).
 
 ### Discussion: Optimal Stopping Rule
 
@@ -71,7 +97,7 @@ The expected value of the walk is always,
 
 $$ E[S_n] = 0 $$
 
-as the deck has equal reds and blacks. So $S_n$ is a **martingale**. More precisely, $S_{t \wedge \tau}$ is a stopped martingale, and since $\tau \leq 52$ is a bounded stopping time, the optional stopping theorem guarantees $E[S_{\tau} = 0]$, the expected profit at the stopping point is zero, and all profit comes purely from the timing optionality.
+as the deck has equal reds and blacks. So $S_n$ is a **martingale**. More precisely, $S_{t \wedge \tau}$ is a stopped martingale, and since $\tau \leq 52$ is a bounded stopping time, the optional stopping theorem guarantees $E[S_{\tau}] = 0$, the expected profit at the stopping point is zero, and all profit comes purely from the timing optionality.
 
 But the expected profit is positive as we are allowed to **stop at any time**. Our payoff is therefore,
 
@@ -101,7 +127,7 @@ Note that while $S_{52} = 0$ in our case, due to the balanced deck, the variance
 
 We also note a really nice asymptotic insight here. 
 
-For large decks, an asymptotic approximation gives a tighter boundand reveals the geometric structure of the problem. The process behaves like **Brownian motion**. Let $d = r - b$ be the red advantage. The remaining deck size is
+For large decks, an asymptotic approximation gives a tighter bound and reveals the geometric structure of the problem. The process behaves like **Brownian motion**. Let $d = r - b$ be the red advantage. The remaining deck size is
 
 $$ n = r + b $$
 
@@ -109,7 +135,7 @@ The variance of the remaining walk is roughly of the order of *n*. Optimal stopp
 
 $$ d \approx c \sqrt{n} $$
 
-where *c* can be numerically estimated from the DP solution to be around 1. This means you should continue only if your red advantage exceeds roughly $\sqrt{n}$, i.e. the remaining volatility of the walk.
+where *c* can be numerically estimated from the DP solution to be a constant of order 1. This means you should continue only if your red advantage exceeds roughly $\sqrt{n}$, i.e. the remaining volatility of the walk.
 
 Under the Brownian motion approximation, $S_t$ converges to a scaled Brownian motion $B_t$. For a standard Brownian motion, the reflection principle gives
 
@@ -144,6 +170,8 @@ This is exactly the payoff of an American option:
 * maturity: $n$
 
 If the walk rises past the optimal threshold, you exercise; otherwise you continue holding the option.
+
+---
 
 ## Key Insight
 
