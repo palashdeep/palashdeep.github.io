@@ -8,6 +8,9 @@ theme:
     - navigation.instant
     - navigation.sections
     - navigation.expand
+    - navigation.top
+    - navigation.tabs
+    - navigation.tabs.sticky
     - content.code.copy
     - content.action.edit
     - content.tabs.link
@@ -18,6 +21,7 @@ markdown_extensions:
       generic: true
   - attr_list
   - md_in_html
+  - pymdownx.details
   - pymdownx.superfences
   - pymdownx.highlight
   - pymdownx.emoji:
@@ -28,8 +32,9 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
-  - Home: index.md
-  - Puzzle Index: puzzles/index.md
+  - Home: 
+    - Home: index.md
+    - Puzzle Index: puzzles/index.md
   - Puzzles:
       - Subset of Subsets: puzzles/puzzle01.md
       - First Black Ace: puzzles/puzzle02.md

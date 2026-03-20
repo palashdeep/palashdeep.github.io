@@ -8,55 +8,45 @@ Exploring probability puzzles and decision-making under uncertainty.
 
 <div class="grid cards" markdown>
 
+-   :material-finance: **Market Making**
+
+    Pricing under asymmetric information and adverse selection.
+
+    [Read →](puzzles/puzzle07.md)
+
 -   :material-dice-6: **Penney's Game**
     
     Non-transitive coin patterns and optimal counter strategies.
 
     [Read →](puzzles/puzzle06.md)
 
--   :material-door: **Monty Hall with a Twist**
-    
-    When priors change the famous game.
+-   :material-cards: **A Card Game**
 
-    [Read →](puzzles/puzzle05.md)
+    A sequential card game with a subtle stopping edge.
 
--   :material-chart-line: **Choosing the Largest Offer**
-    
-    A classic optimal stopping problem.
+    [Read →](puzzles/puzzle04.md)
 
-    [Read →](puzzles/puzzle03.md)
+-   :material-function-variant: **Exponent upon Exponent**
+
+    A surprising limit hidden inside infinite exponentiation.
+
+    [Read →](puzzles/puzzle08.md)
 
 </div>
 
-<!-- ---
+---
 
-## Topics
+## Explore
 
-### Probability & Bayesian Reasoning
+[📚 Browse Puzzles →](puzzles/index.md){ .md-button .md-button--primary }
 
-- [Monty Hall with a Twist](puzzles/puzzle05.md)
-- [First Black Ace](puzzles/puzzle02.md)
+??? tip "Quick preview"
 
-### Optimal Stopping Problems
-
-- [Choosing the Largest Offer](puzzles/puzzle03.md)
-- [A Card Game](puzzles/puzzle04.md)
-
-### Combinatorics
-
-- [Subset of Subsets](puzzles/puzzle01.md)
-
-### Sequential Probability
-
-- [Penney's Game](puzzles/puzzle06.md)
-
-### Quant & Market Microstructure
-
-- [Market Making](puzzles/puzzle07.md)
-
-### Mathematical Curiosities
-
-- [Exponent upon Exponent](puzzles/puzzle08.md) -->
+    - Subset of Subsets
+    - Monty Hall with a Twist
+    - Choosing the Largest Offer
+    - First Black Ace
+    - ...
 
 ---
 
