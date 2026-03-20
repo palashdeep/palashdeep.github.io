@@ -1,0 +1,9 @@
+.md-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  /* Show sidebar when toggled */
+  [data-md-toggle="drawer"]:checked ~ .md-container .md-sidebar {
+    transform: translateX(0);
+  }
